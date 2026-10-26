@@ -6,7 +6,7 @@
         <div>
           <span class="text-xs uppercase tracking-widest text-ink/60 font-semibold mb-2 block">Portfolio</span>
           <h2 class="display max-w-xl text-4xl md:text-5xl text-ink">Selected projects</h2>
-          <p class="mt-2 max-w-md text-ink/70">Villas and residences designed and built across Bali.</p>
+          <p class="mt-2 max-w-md text-ink/70">Villas and residences designed and built across Bali. Click any project to view its case study.</p>
         </div>
 
         <!-- Scroll Nav Controls -->
@@ -48,12 +48,13 @@
         @mousemove="onDrag"
         class="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth px-5 md:px-[calc((100vw-80rem)/2+2rem)] snap-x snap-mandatory cursor-grab active:cursor-grabbing pb-6 select-none"
       >
-        <article 
-          v-for="(project, index) in projects" 
-          :key="index"
-          class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start"
+        <router-link 
+          v-for="project in projects" 
+          :key="project.id"
+          :to="`/projects/${project.slug}`"
+          class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start block text-left"
         >
-          <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-md border border-ink/10">
+          <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-lg border border-ink/10">
             <!-- Clean Neutral Gray Image Placeholder with Image Icon -->
             <div class="relative aspect-[16/10] overflow-hidden bg-[#DDD8CC] flex flex-col items-center justify-center text-center p-6 border-b border-ink/10 select-none">
               <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/70 text-ink/60 shadow-sm mb-3 transition-transform group-hover:scale-110 duration-300">
@@ -75,14 +76,22 @@
 
             <div class="p-6 bg-white">
               <div class="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 class="display text-2xl text-ink font-medium">{{ project.title }}</h3>
+                <h3 class="display text-2xl text-ink font-medium group-hover:text-pool transition-colors">{{ project.title }}</h3>
                 <span class="text-xs uppercase tracking-wider text-pool font-semibold">{{ project.status }}</span>
               </div>
               <p class="mt-2 text-sm text-ink/70">{{ project.meta }}</p>
               <p class="mt-3 text-xs leading-relaxed text-ink/60 line-clamp-2">{{ project.desc }}</p>
+
+              <!-- Subtle Action Cue -->
+              <div class="mt-5 pt-4 border-t border-ink/10 flex items-center justify-between text-xs font-medium text-ink/80 group-hover:text-pool transition-colors">
+                <span>View Full Case Study</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="transform transition-transform group-hover:translate-x-1">
+                  <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+              </div>
             </div>
           </div>
-        </article>
+        </router-link>
       </div>
 
       <!-- Subtle Scroll Progress Indicator -->
@@ -114,6 +123,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import { projects } from '../data/projects'
 
 const sliderRef = ref(null)
 const isAtStart = ref(true)
@@ -124,38 +134,6 @@ const scrollProgress = ref(0)
 let isDragging = false
 let startX = 0
 let scrollLeft = 0
-
-// Proyek Padakarya Design dengan placeholder netral siap diisi foto dari Mas Putu
-const projects = [
-  {
-    title: 'Villa Cepaka',
-    tag: 'Design & Build',
-    status: 'Completed',
-    meta: '1 floor · 7 bedrooms · Bali',
-    desc: 'Deep timber eaves, open pavilions with integrated infinity pool, and native lush gardens.'
-  },
-  {
-    title: 'Abiantuwung Living',
-    tag: 'Real Estate',
-    status: 'In Progress',
-    meta: 'Real estate · Tabanan, Bali',
-    desc: 'Bespoke courtyard living combining Balinese stone craftsmanship with contemporary minimalism.'
-  },
-  {
-    title: 'Villa Upada',
-    tag: 'Architecture & Build',
-    status: 'Completed',
-    meta: 'Design & build · Canggu',
-    desc: 'Distinctive timber pergola, warm ambient lighting, and intimate tropical sanctuary layout.'
-  },
-  {
-    title: 'Padakarya Pavilion',
-    tag: 'Private Villa',
-    status: 'Design Phase',
-    meta: '2 floors · 4 bedrooms · Ubud',
-    desc: 'Cantilevered timber terraces overlooking tranquil river valleys and terraced greenery.'
-  }
-]
 
 const checkScrollPosition = () => {
   if (!sliderRef.value) return
@@ -171,13 +149,13 @@ const checkScrollPosition = () => {
 
 const scrollPrev = () => {
   if (!sliderRef.value) return
-  const cardWidth = sliderRef.value.querySelector('article')?.offsetWidth || 400
+  const cardWidth = sliderRef.value.querySelector('a')?.offsetWidth || 400
   sliderRef.value.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' })
 }
 
 const scrollNext = () => {
   if (!sliderRef.value) return
-  const cardWidth = sliderRef.value.querySelector('article')?.offsetWidth || 400
+  const cardWidth = sliderRef.value.querySelector('a')?.offsetWidth || 400
   sliderRef.value.scrollBy({ left: cardWidth + 24, behavior: 'smooth' })
 }
 

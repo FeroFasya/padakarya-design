@@ -12,12 +12,12 @@
 
       <!-- Desktop Nav (Tetap sama seperti desain awal) -->
       <nav class="hidden items-center gap-8 text-sm text-white/90 md:flex" aria-label="Main">
-        <a class="hover:text-white transition-colors focus-ring" href="#about">About</a>
-        <a class="hover:text-white transition-colors focus-ring" href="#projects">Projects</a>
-        <a class="hover:text-white transition-colors focus-ring" href="#process">Process</a>
-        <a class="rounded-full bg-white px-5 py-2 font-medium text-jungle transition-all hover:bg-stone focus-ring" href="#contact">
+        <router-link class="hover:text-white transition-colors focus-ring" to="/#about">About</router-link>
+        <router-link class="hover:text-white transition-colors focus-ring" to="/#projects">Projects</router-link>
+        <router-link class="hover:text-white transition-colors focus-ring" to="/#process">Process</router-link>
+        <router-link class="rounded-full bg-white px-5 py-2 font-medium text-jungle transition-all hover:bg-stone focus-ring" to="/#contact">
           Start a project
-        </a>
+        </router-link>
       </nav>
 
       <!-- Animated Hamburger Button (Mobile) -->
@@ -56,41 +56,41 @@
         class="overflow-hidden bg-jungle/95 backdrop-blur-xl border-t border-white/10 px-6 pt-5 pb-8 shadow-2xl md:hidden"
       >
         <nav class="flex flex-col gap-2" aria-label="Mobile">
-          <a 
+          <router-link 
             @click="isMobileMenuOpen = false" 
             class="flex items-center justify-between rounded-xl px-4 py-3.5 text-lg display text-white/90 transition-colors hover:bg-white/10 hover:text-white" 
-            href="#about"
+            to="/#about"
           >
             <span>About</span>
             <span class="text-xs font-mono text-white/40">01</span>
-          </a>
+          </router-link>
 
-          <a 
+          <router-link 
             @click="isMobileMenuOpen = false" 
             class="flex items-center justify-between rounded-xl px-4 py-3.5 text-lg display text-white/90 transition-colors hover:bg-white/10 hover:text-white" 
-            href="#projects"
+            to="/#projects"
           >
             <span>Projects</span>
             <span class="text-xs font-mono text-white/40">02</span>
-          </a>
+          </router-link>
 
-          <a 
+          <router-link 
             @click="isMobileMenuOpen = false" 
             class="flex items-center justify-between rounded-xl px-4 py-3.5 text-lg display text-white/90 transition-colors hover:bg-white/10 hover:text-white" 
-            href="#process"
+            to="/#process"
           >
             <span>Process</span>
             <span class="text-xs font-mono text-white/40">03</span>
-          </a>
+          </router-link>
 
           <div class="mt-4 pt-4 border-t border-white/10">
-            <a 
+            <router-link 
               @click="isMobileMenuOpen = false" 
               class="block w-full rounded-full bg-white py-3.5 text-center text-sm font-medium text-jungle shadow-md transition-all hover:bg-stone active:scale-[0.99]" 
-              href="#contact"
+              to="/#contact"
             >
               Start a project
-            </a>
+            </router-link>
 
             <!-- Quick Contact Links on Mobile -->
             <div class="mt-6 flex items-center justify-between px-2 text-xs text-white/60">
