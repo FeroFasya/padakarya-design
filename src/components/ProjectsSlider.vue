@@ -54,10 +54,10 @@
           class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start"
         >
           <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-md border border-ink/10">
-            <!-- Clean Architectural Placeholder (Abu Netral + Icon) -->
-            <div class="relative aspect-[16/10] overflow-hidden bg-[#D8D2C5] flex flex-col items-center justify-center text-center p-6 border-b border-ink/10">
-              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/40 text-ink/60 shadow-inner mb-3 transition-transform group-hover:scale-110 duration-300">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <!-- Clean Neutral Gray Image Placeholder with Image Icon -->
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#DDD8CC] flex flex-col items-center justify-center text-center p-6 border-b border-ink/10 select-none">
+              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/70 text-ink/60 shadow-sm mb-3 transition-transform group-hover:scale-110 duration-300">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
                   <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
                   <circle cx="9" cy="9" r="2"/>
                   <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
@@ -67,7 +67,7 @@
               <span class="text-[11px] text-ink/50 mt-1 font-mono">Placeholder Foto Proyek</span>
 
               <div class="absolute top-4 left-4">
-                <span class="rounded-full bg-jungle/80 backdrop-blur-md px-3 py-1 text-xs font-medium text-white shadow-sm">
+                <span class="rounded-full bg-jungle/85 backdrop-blur-md px-3 py-1 text-xs font-medium text-white shadow-sm">
                   {{ project.tag }}
                 </span>
               </div>
