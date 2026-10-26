@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: 'Instrument Sans', system-ui, sans-serif;
+    background-color: #F6F5F1;
+    color: #1C1F1D;
+  }
+}
+
+.display {
+  font-family: 'Newsreader', Georgia, serif;
+  letter-spacing: -0.015em;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid #2F8F8B;
+  outline-offset: 3px;
+}
+
+.tab[aria-selected="true"] {
+  background: #14201B;
+  color: #F6F5F1;
+  border-color: #14201B;
+}
+
+.hero-in {
+  animation: rise 0.9s ease-out both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.zoom img {
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* Custom scrollbar hiding for horizontal slider */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-in {
+    animation: none;
+  }
+  .zoom img {
+    transition: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}

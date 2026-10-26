@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Padakarya Design | Design &amp; Build Bali</title>
+<meta name="description" content="Padakarya Design: architectural design and build for tropical villas and homes in Bali. One team from concept to construction.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: { extend: {
+    colors: { jungle:'#14201B', moss:'#24362D', pool:'#2F8F8B', teak:'#8A5A3B', stone:'#E4E0D7', bone:'#F6F5F1', ink:'#1C1F1D' },
+    fontFamily: { serif:['Newsreader','Georgia','serif'], sans:['Instrument Sans','system-ui','sans-serif'] }
+  } }
+}
+</script>
+<style>
+  html{scroll-behavior:smooth}
+  body{font-family:'Instrument Sans',system-ui,sans-serif;background:#F6F5F1;color:#1C1F1D}
+  .display{font-family:'Newsreader',Georgia,serif;letter-spacing:-0.015em}
+  .focus-ring:focus-visible{outline:2px solid #2F8F8B;outline-offset:3px}
+  .tab[aria-selected="true"]{background:#14201B;color:#F6F5F1;border-color:#14201B}
+  .hero-in{animation:rise .9s ease-out both}
+  @keyframes rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+  .zoom img{transition:transform .8s ease}
+  .zoom:hover img{transform:scale(1.04)}
+  @media (prefers-reduced-motion:reduce){.hero-in{animation:none}.zoom img{transition:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body class="antialiased">
+
+<!-- NAV -->
+<header id="top" class="fixed inset-x-0 top-0 z-50 transition-colors duration-300" id="nav">
+  <div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8">
+    <a href="#top" class="focus-ring flex items-center gap-3" aria-label="Padakarya Design home">
+      <img src="logo.png" alt="Padakarya Design logo" class="h-10 w-10 rounded-full bg-stone object-cover">
+      <span class="display text-lg text-white">Padakarya <span class="text-white/60">Design</span></span>
+    </a>
+    <nav class="hidden items-center gap-8 text-sm text-white/90 md:flex" aria-label="Main">
+      <a class="hover:text-white focus-ring" href="#about">About</a>
+      <a class="hover:text-white focus-ring" href="#projects">Projects</a>
+      <a class="hover:text-white focus-ring" href="#process">Process</a>
+      <a class="rounded-full bg-white px-5 py-2 font-medium text-jungle hover:bg-stone focus-ring" href="#contact">Start a project</a>
+    </nav>
+    <button id="menuBtn" class="focus-ring rounded-md p-2 text-white md:hidden" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <div id="mobileMenu" class="hidden bg-jungle px-5 pb-6 pt-2 md:hidden">
+    <nav class="flex flex-col gap-1 text-white" aria-label="Mobile">
+      <a class="mm py-3 text-lg display" href="#about">About</a>
+      <a class="mm py-3 text-lg display" href="#projects">Projects</a>
+      <a class="mm py-3 text-lg display" href="#process">Process</a>
+      <a class="mm mt-3 rounded-full bg-white py-3 text-center font-medium text-jungle" href="#contact">Start a project</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="relative flex min-h-[92vh] items-end overflow-hidden bg-jungle">
+  <img src="hero.png" alt="Tropical villa with pool and timber roof by Padakarya Design" class="absolute inset-0 h-full w-full object-cover">
+  <div class="absolute inset-0 bg-gradient-to-t from-jungle via-jungle/50 to-jungle/20"></div>
+  <div class="relative mx-auto w-full max-w-7xl px-5 pb-16 pt-40 md:px-8 md:pb-24">
+    <p class="hero-in mb-5 max-w-md text-sm text-white/80">Design &amp; build ecosystem · Bali</p>
+    <h1 class="hero-in display max-w-4xl text-5xl leading-[1.05] text-white sm:text-6xl md:text-7xl" style="animation-delay:.1s">Tropical homes, designed and built by one team.</h1>
+    <div class="hero-in mt-9 flex flex-wrap gap-3" style="animation-delay:.25s">
+      <a href="#projects" class="focus-ring rounded-full bg-white px-7 py-3 text-sm font-medium text-jungle hover:bg-stone">See our projects</a>
+      <a href="#contact" class="focus-ring rounded-full border border-white/50 px-7 py-3 text-sm font-medium text-white hover:bg-white/10">Talk to the team</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / ECOSYSTEM -->
+<section id="about" class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+  <div class="grid gap-12 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <h2 class="display text-4xl leading-tight md:text-5xl">One stop solution, from first sketch to handover.</h2>
+    </div>
+    <div class="md:col-span-7 md:pl-10">
+      <p class="max-w-xl text-lg leading-relaxed text-ink/80">Padakarya Design is led by Putu Upadana. We design villas and homes that suit Bali's climate: deep timber roofs, open pavilions, pools and gardens that carry light into the evening.</p>
+      <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">Construction is handled by our sister team, Padakarya Construction, so the drawings you approve are the building you get.</p>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-ink/15 p-6">
+          <h3 class="display text-2xl">Padakarya Design</h3>
+          <p class="mt-2 text-sm leading-relaxed text-ink/70">Concept, drawings, 3D visuals, interior and animation.</p>
+        </div>
+        <div class="rounded-2xl bg-jungle p-6 text-white">
+          <h3 class="display text-2xl">Padakarya Construction</h3>
+          <p class="mt-2 text-sm leading-relaxed text-white/75">Complete construction on site, built to the approved design.</p>
+          <a href="#contact" class="focus-ring mt-4 inline-block text-sm font-medium underline underline-offset-4">Ask about building</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS (3 IG items) -->
+<section id="projects" class="bg-stone py-20 md:py-28">
+  <div class="mx-auto max-w-7xl px-5 md:px-8">
+    <div class="mb-12 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+      <h2 class="display max-w-xl text-4xl md:text-5xl">Selected projects</h2>
+      <p class="max-w-sm text-ink/70">Villas and residences designed and built across Bali.</p>
+    </div>
+
+    <div class="grid gap-6 md:grid-cols-12">
+      <article class="zoom group md:col-span-8">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img src="assets/ig-1.jpg" alt="Villa Cepaka with long timber roof, pool and garden" class="aspect-[16/10] w-full object-cover">
+        </div>
+        <div class="mt-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h3 class="display text-2xl">Villa Cepaka</h3>
+          <p class="text-sm text-ink/65">1 floor · 7 bedrooms · Bali</p>
+        </div>
+      </article>
+
+      <article class="zoom group md:col-span-4 md:mt-24">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img src="assets/ig-2.jpg" alt="Abiantuwung Living Real Estate courtyard at dusk" class="aspect-[4/5] w-full object-cover">
+        </div>
+        <div class="mt-4">
+          <h3 class="display text-2xl">Abiantuwung Living</h3>
+          <p class="text-sm text-ink/65">Real estate · Bali</p>
+        </div>
+      </article>
+
+      <article class="zoom group md:col-span-6 md:col-start-4">
+        <div class="overflow-hidden rounded-2xl bg-white">
+          <img src="assets/ig-3.jpg" alt="Villa Upada in Canggu with timber gate and pergola" class="aspect-[16/10] w-full object-cover">
+        </div>
+        <div class="mt-4 flex flex-wrap items-baseline justify-between gap-2">
+          <h3 class="display text-2xl">Villa Upada</h3>
+          <p class="text-sm text-ink/65">Design and build · Canggu</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-12">
+      <a href="https://www.instagram.com/padakarya_design/" target="_blank" rel="noopener" class="focus-ring inline-block rounded-full border border-ink/30 px-6 py-3 text-sm font-medium hover:bg-ink hover:text-bone">More on Instagram</a>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS (interactive tabs) -->
+<section id="process" class="mx-auto max-w-7xl px-5 py-20 md:px-8 md:py-28">
+  <div class="grid gap-10 md:grid-cols-12 md:gap-14">
+    <div class="md:col-span-5">
+      <h2 class="display text-4xl leading-tight md:text-5xl">See the project before it exists.</h2>
+      <p class="mt-5 max-w-md leading-relaxed text-ink/75" id="processText"></p>
+      <div role="tablist" aria-label="Project stages" class="mt-8 flex flex-wrap gap-2" id="tabs"></div>
+    </div>
+    <div class="md:col-span-7">
+      <div class="overflow-hidden rounded-2xl bg-stone">
+        <img id="processImg" src="https://placehold.co/900x675/e5e7eb/a3a3a3?text=Concept" alt="Concept stage" class="aspect-[4/3] w-full object-cover">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="bg-jungle py-20 text-white md:py-28">
+  <div class="mx-auto grid max-w-7xl gap-12 px-5 md:grid-cols-12 md:px-8">
+    <div class="md:col-span-6">
+      <h2 class="display text-4xl leading-tight md:text-6xl">Planning a villa or home in Bali?</h2>
+      <p class="mt-5 max-w-md text-white/75">Tell us about your land and what you want to build. We reply with next steps for design and construction.</p>
+      <a href="https://wa.me/62XXXXXXXXXX?text=Hello%20Padakarya%20Design%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" class="focus-ring mt-8 inline-block rounded-full bg-white px-7 py-3 text-sm font-medium text-jungle hover:bg-stone">Chat on WhatsApp</a>
+    </div>
+    <form id="contactForm" class="space-y-4 md:col-span-5 md:col-start-8" novalidate>
+      <div>
+        <label for="name" class="mb-1 block text-sm text-white/80">Name</label>
+        <input id="name" required class="focus-ring w-full rounded-lg border border-white/25 bg-white/5 px-4 py-3 text-white placeholder-white/40" placeholder="Your name">
+      </div>
+      <div>
+        <label for="loc" class="mb-1 block text-sm text-white/80">Project location</label>
+        <input id="loc" class="focus-ring w-full rounded-lg border border-white/25 bg-white/5 px-4 py-3 text-white placeholder-white/40" placeholder="e.g. Canggu, Ubud, Tabanan">
+      </div>
+      <div>
+        <label for="msg" class="mb-1 block text-sm text-white/80">About the project</label>
+        <textarea id="msg" rows="3" class="focus-ring w-full rounded-lg border border-white/25 bg-white/5 px-4 py-3 text-white placeholder-white/40" placeholder="Land size, number of bedrooms, timeline"></textarea>
+      </div>
+      <button type="submit" class="focus-ring w-full rounded-full bg-pool px-7 py-3 text-sm font-medium text-white hover:brightness-110">Send via WhatsApp</button>
+      <p id="formNote" class="hidden text-sm text-red-300" role="alert">Please enter your name first.</p>
+    </form>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-ink text-white/70">
+  <div class="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-3 md:px-8">
+    <div>
+      <div class="flex items-center gap-3">
+        <img src="assets/logo.png" alt="Padakarya Design logo" class="h-9 w-9 rounded-full bg-stone object-cover">
+        <span class="display text-lg text-white">Padakarya Design</span>
+      </div>
+      <p class="mt-3 max-w-xs text-sm">Design &amp; build ecosystem for tropical villas and homes in Bali.</p>
+    </div>
+    <nav class="flex flex-col gap-2 text-sm" aria-label="Footer">
+      <a class="hover:text-white" href="#about">About</a>
+      <a class="hover:text-white" href="#projects">Projects</a>
+      <a class="hover:text-white" href="#process">Process</a>
+      <a class="hover:text-white" href="#contact">Contact</a>
+    </nav>
+    <div class="flex flex-col gap-2 text-sm">
+      <a class="hover:text-white" href="https://www.instagram.com/padakarya_design/" target="_blank" rel="noopener">@padakarya_design</a>
+      <a class="hover:text-white" href="https://www.instagram.com/padakarya_construction/" target="_blank" rel="noopener">@padakarya_construction</a>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-5 text-center text-xs">
+    <p>© <span id="yr"></span> Padakarya Design. All rights reserved.</p>
+    <p class="mt-1 text-white/50">Prototype by Fero</p>
+  </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/62XXXXXXXXXX?text=Hello%20Padakarya%20Design%2C%20I%27d%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener" aria-label="Chat on WhatsApp" class="focus-ring fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] shadow-lg hover:scale-105 transition-transform">
+  <svg width="30" height="30" viewBox="0 0 32 32" fill="#fff" aria-hidden="true"><path d="M16 3C9.4 3 4 8.3 4 14.9c0 2.3.7 4.5 1.9 6.3L4 29l8-2.1c1.2.6 2.600.9 4 .9 6.600 0 12-5.300 12-11.900C28 8.300 22.600 3 16 3zm0 21.700c-1.300 0-2.500-.3-3.600-.9l-.5-.3-4.700 1.200 1.300-4.600-.3-.5a9 9 0 0 1-1.400-4.800C6.800 9.800 10.900 5.800 16 5.800s9.200 4 9.200 9-4.100 9.900-9.200 9.900zm5-6.700c-.3-.1-1.600-.8-1.900-.9-.3-.1-.5-.1-.7.1l-.9 1.100c-.2.200-.3.200-.6.100-1.600-.8-2.700-1.400-3.700-3.200-.3-.5.300-.5.800-1.500.1-.2 0-.4 0-.5l-.9-2.100c-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.100-.7.300-.3.300-1 1-1 2.400s1 2.800 1.200 3c.1.200 2 3.100 4.900 4.300 1.800.8 2.500.8 3.400.7.600-.1 1.600-.7 1.900-1.300.2-.6.200-1.100.2-1.300-.1-.1-.3-.2-.6-.3z"/></svg>
+</a>
+
+<script>
+// Mobile menu
+const menuBtn = document.getElementById('menuBtn'), mobileMenu = document.getElementById('mobileMenu');
+function setMenu(open){ mobileMenu.classList.toggle('hidden', !open); menuBtn.setAttribute('aria-expanded', open); }
+menuBtn.addEventListener('click', () => setMenu(mobileMenu.classList.contains('hidden')));
+document.querySelectorAll('.mm').forEach(a => a.addEventListener('click', () => setMenu(false)));
+
+// Header turns solid after the hero
+const header = document.getElementById('top');
+function onScroll(){ header.classList.toggle('bg-jungle', window.scrollY > 60); header.classList.toggle('shadow-lg', window.scrollY > 60); }
+window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
+
+// Process tabs (replace placehold.co with real assets later)
+const stages = [
+  {k:'Concept',   t:'We start with massing, roof form and how the site opens to garden and pool.'},
+  {k:'Drawings',  t:'Plans, sections and details that the construction team builds from directly.'},
+  {k:'Site',      t:'On-site progress from foundation to roof, handled by Padakarya Construction.'},
+  {k:'Interior',  t:'Timber, stone and lighting chosen together with the architecture.'},
+  {k:'Photo',     t:'The finished villa, photographed in daylight and at dusk.'},
+  {k:'Animation', t:'Walkthroughs that let you move through the design before it is built.'}
+];
+const tabs = document.getElementById('tabs'), img = document.getElementById('processImg'), txt = document.getElementById('processText');
+function select(i){
+  [...tabs.children].forEach((b,j) => b.setAttribute('aria-selected', j===i));
+  img.src = 'https://placehold.co/900x675/e5e7eb/a3a3a3?text=' + encodeURIComponent(stages[i].k);
+  img.alt = stages[i].k + ' stage';
+  txt.textContent = stages[i].t;
+}
+stages.forEach((s,i) => {
+  const b = document.createElement('button');
+  b.type = 'button'; b.setAttribute('role','tab'); b.textContent = s.k;
+  b.className = 'tab focus-ring rounded-full border border-ink/25 px-4 py-2 text-sm transition-colors hover:border-ink';
+  b.addEventListener('click', () => select(i));
+  tabs.appendChild(b);
+});
+select(0);
+
+// Contact form -> WhatsApp
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const n = document.getElementById('name').value.trim(), l = document.getElementById('loc').value.trim(), m = document.getElementById('msg').value.trim();
+  const note = document.getElementById('formNote');
+  if(!n){ note.classList.remove('hidden'); return; }
+  note.classList.add('hidden');
+  const text = `Hello Padakarya Design, I'm ${n}.` + (l ? ` Project location: ${l}.` : '') + (m ? ` ${m}` : '');
+  window.open('https://wa.me/62XXXXXXXXXX?text=' + encodeURIComponent(text), '_blank', 'noopener');
+});
+document.getElementById('yr').textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
