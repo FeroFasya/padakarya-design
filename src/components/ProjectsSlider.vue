@@ -53,17 +53,21 @@
           :key="index"
           class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start"
         >
-          <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-md">
-            <div class="relative aspect-[16/10] overflow-hidden bg-stone/50">
-              <img 
-                :src="project.image" 
-                :alt="project.title" 
-                class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                loading="lazy"
-                draggable="false"
-              >
+          <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-md border border-ink/10">
+            <!-- Clean Architectural Placeholder (Abu Netral + Icon) -->
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#D8D2C5] flex flex-col items-center justify-center text-center p-6 border-b border-ink/10">
+              <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/40 text-ink/60 shadow-inner mb-3 transition-transform group-hover:scale-110 duration-300">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                  <circle cx="9" cy="9" r="2"/>
+                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                </svg>
+              </div>
+              <span class="text-xs font-semibold uppercase tracking-wider text-ink/70">{{ project.title }}</span>
+              <span class="text-[11px] text-ink/50 mt-1 font-mono">Placeholder Foto Proyek</span>
+
               <div class="absolute top-4 left-4">
-                <span class="rounded-full bg-jungle/70 backdrop-blur-md px-3 py-1 text-xs font-medium text-white">
+                <span class="rounded-full bg-jungle/80 backdrop-blur-md px-3 py-1 text-xs font-medium text-white shadow-sm">
                   {{ project.tag }}
                 </span>
               </div>
@@ -121,39 +125,35 @@ let isDragging = false
 let startX = 0
 let scrollLeft = 0
 
-// Proyek-proyek Padakarya Design dengan foto tropical aesthetic berkualitas tinggi (menunggu foto asli dari GDrive Mas Putu)
+// Proyek Padakarya Design dengan placeholder netral siap diisi foto dari Mas Putu
 const projects = [
   {
     title: 'Villa Cepaka',
     tag: 'Design & Build',
     status: 'Completed',
     meta: '1 floor · 7 bedrooms · Bali',
-    desc: 'Deep timber eaves, open pavilions with integrated infinity pool, and native lush gardens.',
-    image: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Deep timber eaves, open pavilions with integrated infinity pool, and native lush gardens.'
   },
   {
     title: 'Abiantuwung Living',
     tag: 'Real Estate',
     status: 'In Progress',
     meta: 'Real estate · Tabanan, Bali',
-    desc: 'Bespoke courtyard living combining Balinese stone craftsmanship with contemporary minimalism.',
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Bespoke courtyard living combining Balinese stone craftsmanship with contemporary minimalism.'
   },
   {
     title: 'Villa Upada',
     tag: 'Architecture & Build',
     status: 'Completed',
     meta: 'Design & build · Canggu',
-    desc: 'Distinctive timber pergola, warm ambient lighting, and intimate tropical sanctuary layout.',
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Distinctive timber pergola, warm ambient lighting, and intimate tropical sanctuary layout.'
   },
   {
-    title: 'Ubud Pavilion Residence',
+    title: 'Padakarya Pavilion',
     tag: 'Private Villa',
     status: 'Design Phase',
     meta: '2 floors · 4 bedrooms · Ubud',
-    desc: 'Cantilevered timber terraces overlooking tranquil river valleys and terraced greenery.',
-    image: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1200&q=80'
+    desc: 'Cantilevered timber terraces overlooking tranquil river valleys and terraced greenery.'
   }
 ]
 
