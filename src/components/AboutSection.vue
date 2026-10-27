@@ -7,8 +7,12 @@
         </h2>
       </div>
       <div class="md:col-span-7 md:pl-10">
+        <div class="mb-4 inline-flex items-center gap-2 rounded-full border border-ink/15 bg-white/70 px-3.5 py-1 text-xs font-medium text-ink/70 shadow-sm">
+          <span class="h-1.5 w-1.5 rounded-full bg-pool"></span>
+          <span>Experienced Since 2013 · CV Pada Karya</span>
+        </div>
         <p class="max-w-xl text-lg leading-relaxed text-ink/80">
-          Padakarya Design is led by Putu Upadana. We design villas and homes that suit Bali's climate: deep timber roofs, open pavilions, pools and gardens that carry light into the evening.
+          Padakarya Design is handled by a seasoned team of architectural and engineering professionals with proven experience since 2013, originating from the establishment of CV Pada Karya. We design villas and homes that suit Bali's climate: deep timber roofs, open pavilions, pools and gardens that carry light into the evening.
         </p>
         <p class="mt-5 max-w-xl text-lg leading-relaxed text-ink/80">
           Construction is handled by our sister team, Padakarya Construction, so the drawings you approve are the building you get.

@@ -6,7 +6,7 @@
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=flat&logo=vite&logoColor=white)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-38B2AC?style=flat&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
-A modern, responsive landing page and portfolio showcase designed for **Padakarya Design** (Putu Upadana) and **Padakarya Construction**. Crafted with a focus on warm tropical minimalism, high-performance interactions, and seamless direct inquiries.
+A modern, responsive landing page and portfolio showcase designed for **Padakarya Design** and **Padakarya Construction** (CV Pada Karya, established 2013). Crafted with a focus on warm tropical minimalism, high-performance interactions, and seamless direct inquiries.
 
 ---
 
