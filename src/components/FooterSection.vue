@@ -37,7 +37,7 @@
 
     <div class="border-t border-white/10 py-5 text-center text-xs">
       <p>© {{ currentYear }} Padakarya Design. All rights reserved.</p>
-      <p class="mt-1 text-white/40">Crafted by Fero</p>
+      <p class="mt-1 text-white/40">Crafted by Fero Fasya</p>
     </div>
   </footer>
 </template>
