@@ -55,17 +55,30 @@
           class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start block text-left"
         >
           <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-lg border border-ink/10">
-            <!-- Clean Neutral Gray Image Placeholder with Image Icon -->
-            <div class="relative aspect-[16/10] overflow-hidden bg-[#DDD8CC] flex flex-col items-center justify-center text-center p-6 border-b border-ink/10 select-none">
-              <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/70 text-ink/60 shadow-sm mb-3 transition-transform group-hover:scale-110 duration-300">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
-                  <circle cx="9" cy="9" r="2"/>
-                  <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
-                </svg>
-              </div>
-              <span class="text-xs font-semibold uppercase tracking-wider text-ink/70">{{ project.title }}</span>
-              <span class="text-[11px] text-ink/50 mt-1 font-mono">Placeholder Foto Proyek</span>
+            <!-- Real Thumbnail Image OR Clean Neutral Gray Placeholder -->
+            <div class="relative aspect-[16/10] overflow-hidden bg-[#DDD8CC] flex flex-col items-center justify-center text-center border-b border-ink/10 select-none">
+              <template v-if="project.thumbnail">
+                <img 
+                  :src="project.thumbnail" 
+                  :alt="project.title" 
+                  class="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                  loading="lazy"
+                >
+                <div class="absolute inset-0 bg-gradient-to-t from-jungle/40 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity"></div>
+              </template>
+              <template v-else>
+                <div class="p-6 flex flex-col items-center justify-center">
+                  <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/70 text-ink/60 shadow-sm mb-3 transition-transform group-hover:scale-110 duration-300">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="18" height="18" x="3" y="3" rx="2" ry="2"/>
+                      <circle cx="9" cy="9" r="2"/>
+                      <path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/>
+                    </svg>
+                  </div>
+                  <span class="text-xs font-semibold uppercase tracking-wider text-ink/70">{{ project.title }}</span>
+                  <span class="text-[11px] text-ink/50 mt-1 font-mono">Placeholder Foto Proyek</span>
+                </div>
+              </template>
 
               <div class="absolute top-4 left-4">
                 <span class="rounded-full bg-jungle/85 backdrop-blur-md px-3 py-1 text-xs font-medium text-white shadow-sm">
