@@ -29,14 +29,49 @@
     <main class="pt-24 pb-20">
       <!-- Project Hero & Metadata -->
       <section class="mx-auto max-w-7xl px-5 pt-8 md:px-8">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          <span class="rounded-full bg-jungle text-white px-3.5 py-1 text-xs font-medium tracking-wide">
-            {{ project.tag }}
-          </span>
-          <span class="rounded-full bg-pool/15 text-pool px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
-            {{ project.status }}
-          </span>
-          <span class="text-xs text-ink/60 font-mono">{{ project.meta }}</span>
+        <div class="flex flex-wrap items-center justify-between gap-4 mb-4">
+          <div class="flex flex-wrap items-center gap-3">
+            <span class="rounded-full bg-jungle text-white px-3.5 py-1 text-xs font-medium tracking-wide">
+              {{ project.tag }}
+            </span>
+            <span class="rounded-full bg-pool/15 text-pool px-3.5 py-1 text-xs font-semibold uppercase tracking-wider">
+              {{ project.status }}
+            </span>
+            <span class="text-xs text-ink/60 font-mono">{{ project.meta }}</span>
+          </div>
+
+          <!-- Quick Share Buttons (WhatsApp & Salin Tautan) -->
+          <div class="flex items-center gap-2">
+            <button 
+              @click="shareViaWhatsApp"
+              type="button"
+              class="focus-ring inline-flex items-center gap-2 rounded-full bg-[#25D366]/15 hover:bg-[#25D366] text-[#0c7042] hover:text-white px-4 py-1.5 text-xs font-medium transition-all shadow-sm"
+              title="Bagikan portofolio ini via WhatsApp"
+            >
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zM12.05 20.21c-1.5 0-2.96-.39-4.24-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.24-8.22 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.01 2.57c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+              </svg>
+              <span>Share WhatsApp</span>
+            </button>
+
+            <button 
+              @click="copyProjectLink"
+              type="button"
+              class="focus-ring inline-flex items-center gap-1.5 rounded-full border border-ink/20 bg-white/70 hover:bg-white text-ink px-3.5 py-1.5 text-xs font-medium transition-all shadow-sm"
+              title="Salin tautan halaman proyek"
+            >
+              <svg v-if="!linkCopied" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+              </svg>
+              <svg v-else width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#0c7042" stroke-width="2.5">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
+              <span :class="{ 'text-[#0c7042] font-semibold': linkCopied }">
+                {{ linkCopied ? 'Tersalin!' : 'Salin Link' }}
+              </span>
+            </button>
+          </div>
         </div>
 
         <h1 class="display text-4xl sm:text-6xl md:text-7xl font-normal text-ink leading-[1.05]">
@@ -364,21 +399,63 @@
           >
             <!-- Lightbox Top Bar -->
             <div class="flex items-center justify-between text-white border-b border-white/10 pb-4">
-              <div>
+              <div class="max-w-[55%] sm:max-w-md">
                 <span class="text-xs font-mono uppercase tracking-widest text-pool font-semibold block">
                   {{ currentLightboxItem?.category || 'Interior & Detailing' }} · Lembar {{ currentLightboxIndex + 1 }} dari {{ activeLightboxList.length }}
                 </span>
-                <h3 class="display text-xl sm:text-2xl font-medium mt-0.5">
+                <h3 class="display text-xl sm:text-2xl font-medium mt-0.5 truncate">
                   {{ currentLightboxItem?.title }}
                 </h3>
               </div>
 
-              <div class="flex items-center gap-3">
+              <!-- Top Bar Actions: Zoom Controls + Close -->
+              <div class="flex items-center gap-2 sm:gap-3">
+                <!-- Zoom Controls Toolbar -->
+                <div class="flex items-center gap-1 bg-white/10 backdrop-blur-md rounded-full px-2 py-1 border border-white/15">
+                  <button 
+                    @click.stop="zoomOut"
+                    type="button"
+                    :disabled="zoomLevel <= 1"
+                    class="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-white/80 hover:bg-white/20 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent transition-all"
+                    title="Perkecil Zoom (-)"
+                    aria-label="Zoom out"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                  </button>
+
+                  <button 
+                    @click.stop="resetZoom"
+                    type="button"
+                    class="px-2 py-0.5 text-xs font-mono font-medium rounded-full text-white/90 hover:bg-white/20 transition-all"
+                    title="Klik untuk reset zoom (1:1)"
+                  >
+                    {{ Math.round(zoomLevel * 100) }}%
+                  </button>
+
+                  <button 
+                    @click.stop="zoomIn"
+                    type="button"
+                    :disabled="zoomLevel >= 3"
+                    class="flex h-7 w-7 sm:h-8 sm:w-8 items-center justify-center rounded-full text-white/80 hover:bg-white/20 hover:text-white disabled:opacity-30 disabled:hover:bg-transparent transition-all"
+                    title="Perbesar Zoom (+)"
+                    aria-label="Zoom in"
+                  >
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="12" y1="5" x2="12" y2="19"/>
+                      <line x1="5" y1="12" x2="19" y2="12"/>
+                    </svg>
+                  </button>
+                </div>
+
+                <!-- Close Button -->
                 <button 
                   @click="closeLightbox"
                   type="button"
-                  class="focus-ring flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all"
+                  class="focus-ring flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all"
                   aria-label="Tutup preview"
+                  title="Tutup (Esc)"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M18 6L6 18M6 6l12 12"/>
@@ -387,31 +464,54 @@
               </div>
             </div>
 
-            <!-- Lightbox Main Image Preview with Watermark -->
-            <div class="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
-              <img 
-                :src="currentLightboxItem?.file" 
-                :alt="currentLightboxItem?.title"
-                class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl pointer-events-none select-none"
+            <!-- Lightbox Main Image Preview with Interactive Pan & Zoom -->
+            <div 
+              class="relative flex-1 flex items-center justify-center my-4 overflow-hidden select-none"
+              :class="{ 
+                'cursor-grab': zoomLevel > 1 && !isDragging, 
+                'cursor-grabbing': isDragging, 
+                'cursor-zoom-in': zoomLevel === 1 
+              }"
+              @mousedown="startPan"
+              @mousemove="doPan"
+              @mouseup="stopPan"
+              @mouseleave="stopPan"
+              @wheel.prevent="handleWheel"
+              @dblclick="toggleZoom"
+            >
+              <!-- Scaled & Panned Container (Image + Watermark + Badge scale together) -->
+              <div 
+                class="relative max-h-[75vh] max-w-full flex items-center justify-center transition-transform duration-100 ease-out"
+                :style="{
+                  transform: `scale(${zoomLevel}) translate(${panX}px, ${panY}px)`,
+                  transformOrigin: 'center center'
+                }"
               >
+                <img 
+                  :src="currentLightboxItem?.file" 
+                  :alt="currentLightboxItem?.title"
+                  class="max-h-[75vh] max-w-full object-contain rounded-lg shadow-2xl pointer-events-none select-none"
+                  draggable="false"
+                >
 
-              <!-- Subtle Watermark Stamp in Fullscreen (Tembus Pandang & Elegan) -->
-              <div class="absolute inset-0 flex flex-col items-center justify-between p-6 pointer-events-none select-none">
-                <!-- Watermark Diagonal Super Halus & Adaptif (Kontras di Kertas Putih & Foto Gelap) -->
-                <div class="my-auto rotate-[-20deg] text-center select-none pointer-events-none">
-                  <p class="text-2xl sm:text-4xl md:text-5xl font-mono font-black tracking-widest text-ink/35 uppercase drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
-                    PADAKARYA DESIGN
-                  </p>
-                  <p class="text-xs sm:text-sm font-mono font-semibold tracking-wider text-ink/40 mt-1.5 uppercase drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
-                    Official Architectural &amp; Interior Portfolio · Protected Preview
-                  </p>
-                </div>
+                <!-- Subtle Watermark Stamp in Fullscreen (Tembus Pandang & Elegan) -->
+                <div class="absolute inset-0 flex flex-col items-center justify-between p-6 pointer-events-none select-none">
+                  <!-- Watermark Diagonal Super Halus & Adaptif (Kontras di Kertas Putih & Foto Gelap) -->
+                  <div class="my-auto rotate-[-20deg] text-center select-none pointer-events-none">
+                    <p class="text-2xl sm:text-4xl md:text-5xl font-mono font-black tracking-widest text-ink/35 uppercase drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
+                      PADAKARYA DESIGN
+                    </p>
+                    <p class="text-xs sm:text-sm font-mono font-semibold tracking-wider text-ink/40 mt-1.5 uppercase drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
+                      Official Architectural &amp; Interior Portfolio · Protected Preview
+                    </p>
+                  </div>
 
-                <!-- Floating Bottom Legal Badge -->
-                <div class="rounded-full border border-white/25 bg-black/60 backdrop-blur-md px-5 py-2 text-center max-w-xl shadow-lg">
-                  <p class="text-[10px] sm:text-xs font-mono text-white/90 leading-tight">
-                    Full design to construction drawing, handle by Padakarya Design and checking by Padakarya Construction as a Contractor
-                  </p>
+                  <!-- Floating Bottom Legal Badge -->
+                  <div class="rounded-full border border-white/25 bg-black/60 backdrop-blur-md px-5 py-2 text-center max-w-xl shadow-lg">
+                    <p class="text-[10px] sm:text-xs font-mono text-white/90 leading-tight">
+                      Full design to construction drawing, handle by Padakarya Design and checking by Padakarya Construction as a Contractor
+                    </p>
+                  </div>
                 </div>
               </div>
 
@@ -419,8 +519,9 @@
               <button 
                 @click.stop="prevLightbox"
                 type="button"
-                class="focus-ring absolute left-2 md:left-6 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all backdrop-blur-md shadow-lg"
+                class="focus-ring absolute left-2 md:left-6 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all backdrop-blur-md shadow-lg z-10"
                 aria-label="Gambar sebelumnya"
+                title="Sebelumnya (←)"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M15 18l-6-6 6-6"/>
@@ -431,8 +532,9 @@
               <button 
                 @click.stop="nextLightbox"
                 type="button"
-                class="focus-ring absolute right-2 md:right-6 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all backdrop-blur-md shadow-lg"
+                class="focus-ring absolute right-2 md:right-6 flex h-12 w-12 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white hover:text-jungle transition-all backdrop-blur-md shadow-lg z-10"
                 aria-label="Gambar selanjutnya"
+                title="Selanjutnya (→)"
               >
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M9 18l6-6-6-6"/>
@@ -441,16 +543,32 @@
             </div>
 
             <!-- Lightbox Bottom Bar -->
-            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-white/60 border-t border-white/10 pt-3 gap-2">
-              <p>Gunakan tombol panah kiri / kanan untuk berpindah lembar.</p>
-              <a 
-                :href="whatsappUrl" 
-                target="_blank" 
-                rel="noopener" 
-                class="text-pool hover:underline"
-              >
-                Konsultasikan Proyek Ini via WhatsApp →
-              </a>
+            <div class="flex flex-col sm:flex-row items-center justify-between text-xs text-white/70 border-t border-white/10 pt-3 gap-2">
+              <div class="flex items-center gap-2">
+                <span class="inline-block h-2 w-2 rounded-full bg-pool animate-pulse"></span>
+                <span>Klik 2x / scroll untuk Zoom · Seret mouse untuk geser detail · Panah ‹ › untuk ganti lembar</span>
+              </div>
+              <div class="flex items-center gap-4">
+                <button 
+                  @click="shareCurrentDrawing"
+                  type="button"
+                  class="text-pool hover:text-white flex items-center gap-1.5 transition-colors font-medium"
+                  title="Bagikan lembar ini via WhatsApp"
+                >
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.816 9.816 0 0 0 12.04 2zM12.05 20.21c-1.5 0-2.96-.39-4.24-1.13l-.3-.18-3.12.82.83-3.04-.2-.31a8.264 8.264 0 0 1-1.26-4.46c0-4.54 3.7-8.24 8.24-8.24 2.2 0 4.27.86 5.82 2.42a8.18 8.18 0 0 1 2.41 5.83c.02 4.54-3.68 8.24-8.22 8.24zm4.52-6.16c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.12-.17.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.12-.14.17-.25.25-.41.08-.17.04-.31-.02-.43s-.56-1.34-.76-1.84c-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.66.31-.23.25-.87.85-.87 2.07s.89 2.4 1.01 2.57c.12.17 1.75 2.67 4.23 3.74.59.26 1.05.41 1.41.53.59.19 1.13.16 1.56.1.48-.07 1.47-.6 1.67-1.18.21-.58.21-1.07.15-1.18-.07-.1-.23-.17-.48-.29z"/>
+                  </svg>
+                  <span>Share Lembar Ini</span>
+                </button>
+                <a 
+                  :href="whatsappUrl" 
+                  target="_blank" 
+                  rel="noopener" 
+                  class="text-white hover:text-pool hover:underline"
+                >
+                  Tanya Padakarya via WhatsApp →
+                </a>
+              </div>
             </div>
           </div>
         </transition>
@@ -588,6 +706,7 @@ const currentLightboxItem = computed(() => {
 })
 
 const openLightbox = (item, idx, mode = 'drawings') => {
+  resetZoom()
   lightboxMode.value = mode
   currentLightboxIndex.value = idx
   lightboxOpen.value = true
@@ -595,18 +714,128 @@ const openLightbox = (item, idx, mode = 'drawings') => {
 }
 
 const closeLightbox = () => {
+  resetZoom()
   lightboxOpen.value = false
   document.body.style.overflow = ''
 }
 
 const nextLightbox = () => {
   if (activeLightboxList.value.length === 0) return
+  resetZoom()
   currentLightboxIndex.value = (currentLightboxIndex.value + 1) % activeLightboxList.value.length
 }
 
 const prevLightbox = () => {
   if (activeLightboxList.value.length === 0) return
+  resetZoom()
   currentLightboxIndex.value = (currentLightboxIndex.value - 1 + activeLightboxList.value.length) % activeLightboxList.value.length
+}
+
+// Zoom & Pan State for Lightbox
+const zoomLevel = ref(1)
+const panX = ref(0)
+const panY = ref(0)
+const isDragging = ref(false)
+const dragStart = ref({ x: 0, y: 0 })
+
+const resetZoom = () => {
+  zoomLevel.value = 1
+  panX.value = 0
+  panY.value = 0
+  isDragging.value = false
+}
+
+const zoomIn = () => {
+  if (zoomLevel.value < 3) {
+    zoomLevel.value = Math.min(3, +(zoomLevel.value + 0.5).toFixed(1))
+  }
+}
+
+const zoomOut = () => {
+  if (zoomLevel.value > 1) {
+    zoomLevel.value = Math.max(1, +(zoomLevel.value - 0.5).toFixed(1))
+    if (zoomLevel.value === 1) {
+      panX.value = 0
+      panY.value = 0
+    }
+  }
+}
+
+const toggleZoom = () => {
+  if (zoomLevel.value > 1) {
+    resetZoom()
+  } else {
+    zoomLevel.value = 2
+  }
+}
+
+const handleWheel = (e) => {
+  if (e.deltaY < 0) {
+    zoomIn()
+  } else if (e.deltaY > 0) {
+    zoomOut()
+  }
+}
+
+const startPan = (e) => {
+  if (zoomLevel.value <= 1) return
+  isDragging.value = true
+  dragStart.value = {
+    x: e.clientX - panX.value * zoomLevel.value,
+    y: e.clientY - panY.value * zoomLevel.value
+  }
+}
+
+const doPan = (e) => {
+  if (!isDragging.value || zoomLevel.value <= 1) return
+  panX.value = (e.clientX - dragStart.value.x) / zoomLevel.value
+  panY.value = (e.clientY - dragStart.value.y) / zoomLevel.value
+}
+
+const stopPan = () => {
+  isDragging.value = false
+}
+
+// Project & Drawing Share Functions
+const linkCopied = ref(false)
+
+const copyProjectLink = async () => {
+  try {
+    const url = window.location.href
+    if (navigator?.clipboard?.writeText) {
+      await navigator.clipboard.writeText(url)
+    } else {
+      const dummy = document.createElement('input')
+      document.body.appendChild(dummy)
+      dummy.value = url
+      dummy.select()
+      document.execCommand('copy')
+      document.body.removeChild(dummy)
+    }
+    linkCopied.value = true
+    setTimeout(() => {
+      linkCopied.value = false
+    }, 2500)
+  } catch (err) {
+    console.error('Failed to copy link', err)
+  }
+}
+
+const shareViaWhatsApp = () => {
+  const url = window.location.href
+  const title = project.value?.title || 'Portofolio'
+  const text = `Halo, berikut portofolio perancangan & konstruksi resmi ${title} oleh Padakarya Design:\n${url}`
+  const waShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`
+  window.open(waShareUrl, '_blank')
+}
+
+const shareCurrentDrawing = () => {
+  const url = window.location.href
+  const title = project.value?.title || 'Portofolio'
+  const itemTitle = currentLightboxItem.value?.title || 'Lembar Teknis'
+  const text = `Halo, berikut lembar teknis [${itemTitle}] untuk proyek ${title} oleh Padakarya Design:\n${url}`
+  const waShareUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`
+  window.open(waShareUrl, '_blank')
 }
 
 const handleKeydown = (e) => {
@@ -614,6 +843,9 @@ const handleKeydown = (e) => {
   if (e.key === 'Escape') closeLightbox()
   if (e.key === 'ArrowRight') nextLightbox()
   if (e.key === 'ArrowLeft') prevLightbox()
+  if (e.key === '+' || e.key === '=') zoomIn()
+  if (e.key === '-' || e.key === '_') zoomOut()
+  if (e.key === '0') resetZoom()
 }
 
 const handleThumbnailError = (e) => {
