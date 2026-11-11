@@ -6,7 +6,7 @@
   >
     <div class="mx-auto flex max-w-7xl items-center justify-between px-5 md:px-8">
       <a href="#top" class="focus-ring flex items-center gap-3" aria-label="Padakarya Design home">
-        <img src="/logo.png" alt="Padakarya Design logo" class="h-10 w-10 rounded-full bg-stone object-cover shadow-sm">
+        <img src="/official.webp" alt="Padakarya Design logo" class="h-10 w-10 rounded-full bg-stone object-cover shadow-sm">
         <span class="display text-lg text-white">Padakarya <span class="text-white/60">Design</span></span>
       </a>
 

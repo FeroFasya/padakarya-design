@@ -3,7 +3,7 @@
     <div class="mx-auto grid max-w-7xl gap-8 px-5 py-12 md:grid-cols-3 md:px-8">
       <div>
         <div class="flex items-center gap-3">
-          <img src="/logo.png" alt="Padakarya Design logo" class="h-9 w-9 rounded-full bg-stone object-cover">
+          <img src="/official.webp" alt="Padakarya Design logo" class="h-9 w-9 rounded-full bg-stone object-cover">
           <span class="display text-lg text-white">Padakarya Design</span>
         </div>
         <p class="mt-3 max-w-xs text-sm leading-relaxed">
@@ -37,7 +37,17 @@
 
     <div class="border-t border-white/10 py-5 text-center text-xs">
       <p>© {{ currentYear }} Padakarya Design. All rights reserved.</p>
-      <p class="mt-1 text-white/40">Crafted by Fero Fasya</p>
+      <p class="mt-1 text-white/40">
+        Crafted by 
+        <a 
+          href="https://www.instagram.com/rferofai" 
+          target="_blank" 
+          rel="noopener" 
+          class="text-white/60 hover:text-white underline underline-offset-2 transition-colors"
+        >
+          Fero Fasya
+        </a>
+      </p>
     </div>
   </footer>
 </template>

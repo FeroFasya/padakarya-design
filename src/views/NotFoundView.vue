@@ -4,7 +4,7 @@
     <header class="bg-jungle py-4 px-6 border-b border-white/10">
       <div class="mx-auto max-w-7xl flex items-center justify-between">
         <router-link to="/" class="flex items-center gap-3">
-          <img src="/logo.png" alt="Padakarya Design Logo" class="h-9 w-9 rounded-full bg-stone object-cover">
+          <img src="/official.webp" alt="Padakarya Design Logo" class="h-9 w-9 rounded-full bg-stone object-cover">
           <span class="display text-lg text-white">Padakarya <span class="text-white/60">Design</span></span>
         </router-link>
         <router-link to="/" class="rounded-full bg-white px-5 py-2 text-xs font-medium text-jungle hover:bg-stone transition-all">

@@ -22,7 +22,7 @@
           <div class="rounded-2xl border border-ink/15 p-6 bg-white/50 backdrop-blur-sm">
             <h3 class="display text-2xl text-ink">Padakarya Design</h3>
             <p class="mt-2 text-sm leading-relaxed text-ink/70">
-              Concept, drawings, 3D visuals, interior and animation.
+              Concept, technical drawings, 3D visuals, interior and landscape.
             </p>
           </div>
           <div class="rounded-2xl bg-jungle p-6 text-white shadow-sm">

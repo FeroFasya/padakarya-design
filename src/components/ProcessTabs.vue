@@ -103,7 +103,8 @@ const activeIndex = ref(0)
 const stages = [
   {
     name: 'Concept',
-    description: 'We start with massing, roof form and how the site opens to garden and pool.'
+    description: 'We start with massing, roof form and how the site opens to garden and pool.',
+    realImage: '/projects/cepaka-villa-b/01.webp'
   },
   {
     name: 'Drawings',
@@ -112,7 +113,8 @@ const stages = [
   },
   {
     name: 'Site',
-    description: 'On-site progress from foundation to roof, handled by Padakarya Construction.'
+    description: 'On-site progress from foundation to roof, handled by Padakarya Construction.',
+    realImage: '/projects/rumah-bengkel-gede/prog-01.webp'
   },
   {
     name: 'Interior',
@@ -121,11 +123,8 @@ const stages = [
   },
   {
     name: 'Photo',
-    description: 'The finished villa, photographed in daylight and at dusk.'
-  },
-  {
-    name: 'Animation',
-    description: 'Walkthroughs that let you move through the design before it is built.'
+    description: 'The finished villa, photographed in daylight and at dusk.',
+    realImage: '/projects/rumah-daje/thumbnail.webp'
   }
 ]
 

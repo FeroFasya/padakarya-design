@@ -14,8 +14,7 @@
           <button 
             @click="scrollPrev"
             type="button"
-            class="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-ink/30 text-ink transition-all hover:bg-jungle hover:text-bone hover:border-jungle active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
-            :disabled="isAtStart"
+            class="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-ink/30 text-ink transition-all hover:bg-jungle hover:text-bone hover:border-jungle active:scale-95"
             aria-label="Previous project"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -25,8 +24,7 @@
           <button 
             @click="scrollNext"
             type="button"
-            class="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-ink/30 text-ink transition-all hover:bg-jungle hover:text-bone hover:border-jungle active:scale-95 disabled:opacity-30 disabled:pointer-events-none"
-            :disabled="isAtEnd"
+            class="focus-ring flex h-11 w-11 items-center justify-center rounded-full border border-ink/30 text-ink transition-all hover:bg-jungle hover:text-bone hover:border-jungle active:scale-95"
             aria-label="Next project"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -37,22 +35,29 @@
       </div>
     </div>
 
-    <!-- Horizontal Scroll Carousel -->
-    <div class="relative">
+    <!-- Horizontal Infinite Auto-Scroll Carousel -->
+    <div 
+      class="relative"
+      @mouseenter="isPaused = true"
+      @mouseleave="handleMouseLeave"
+      @touchstart.passive="isPaused = true"
+      @touchend.passive="resumeAfterTouch"
+    >
       <div 
         ref="sliderRef"
-        @scroll="checkScrollPosition"
+        @scroll.passive="checkScrollPosition"
         @mousedown="startDrag"
-        @mouseleave="stopDrag"
         @mouseup="stopDrag"
         @mousemove="onDrag"
-        class="no-scrollbar flex gap-6 overflow-x-auto scroll-smooth px-5 md:px-[calc((100vw-80rem)/2+2rem)] snap-x snap-mandatory cursor-grab active:cursor-grabbing pb-6 select-none"
+        class="no-scrollbar flex gap-6 overflow-x-auto px-5 md:px-[calc((100vw-80rem)/2+2rem)] cursor-grab active:cursor-grabbing pb-6 select-none"
       >
         <router-link 
-          v-for="project in projects" 
-          :key="project.id"
+          v-for="(project, idx) in loopedProjects" 
+          :key="`${project.id}-${idx}`"
           :to="`/projects/${project.slug}`"
-          class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] snap-start block text-left"
+          @click.capture="handleCardClick"
+          draggable="false"
+          class="zoom group shrink-0 w-[85vw] sm:w-[420px] md:w-[480px] block text-left"
         >
           <div class="overflow-hidden rounded-2xl bg-white shadow-sm transition-all duration-300 group-hover:shadow-lg border border-ink/10">
             <!-- Real Thumbnail Image OR Clean Neutral Gray Placeholder -->
@@ -135,45 +140,109 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { projects } from '../data/projects'
 
-const sliderRef = ref(null)
-const isAtStart = ref(true)
-const isAtEnd = ref(false)
-const scrollProgress = ref(0)
+// Gandakan array proyek agar bisa looping tanpa putus (infinite seamless loop)
+const loopedProjects = computed(() => [...projects, ...projects])
 
-// Drag-to-scroll state
+const sliderRef = ref(null)
+const scrollProgress = ref(8)
+const isPaused = ref(false)
+
+// Drag & Auto-scroll state
 let isDragging = false
+let hasDragged = false
 let startX = 0
 let scrollLeft = 0
+let rafId = null
+let lastTime = 0
+let subPixelCarry = 0
+let buttonCooldownTimer = null
+let touchResumeTimer = null
+
+const getSingleSetWidth = () => {
+  const el = sliderRef.value
+  if (!el) return 0
+  const cards = el.querySelectorAll('a')
+  if (cards.length <= projects.length) return 0
+  return cards[projects.length].offsetLeft - cards[0].offsetLeft
+}
+
+const normalizeLoopScroll = () => {
+  const el = sliderRef.value
+  if (!el) return 0
+  const setWidth = getSingleSetWidth()
+  if (setWidth <= 0) return 0
+
+  if (el.scrollLeft >= setWidth) {
+    el.scrollLeft -= setWidth
+  }
+  return setWidth
+}
 
 const checkScrollPosition = () => {
-  if (!sliderRef.value) return
   const el = sliderRef.value
-  isAtStart.value = el.scrollLeft <= 10
-  isAtEnd.value = el.scrollLeft + el.clientWidth >= el.scrollWidth - 10
-  
-  const maxScroll = el.scrollWidth - el.clientWidth
-  if (maxScroll > 0) {
-    scrollProgress.value = Math.min(100, Math.max(10, (el.scrollLeft / maxScroll) * 100))
+  if (!el) return
+  const setWidth = normalizeLoopScroll()
+  if (setWidth > 0) {
+    const progress = ((el.scrollLeft % setWidth) / setWidth) * 100
+    scrollProgress.value = Math.min(100, Math.max(6, progress))
   }
 }
 
+const autoScrollStep = (timestamp) => {
+  if (!lastTime) lastTime = timestamp
+  const dt = Math.min(50, timestamp - lastTime)
+  lastTime = timestamp
+
+  if (!isPaused.value && !isDragging && sliderRef.value) {
+    // Kecepatan halus ~48px per detik
+    subPixelCarry += (dt / 1000) * 48
+    const wholePixels = Math.trunc(subPixelCarry)
+    if (wholePixels >= 1) {
+      sliderRef.value.scrollLeft += wholePixels
+      subPixelCarry -= wholePixels
+      checkScrollPosition()
+    }
+  }
+
+  rafId = window.requestAnimationFrame(autoScrollStep)
+}
+
+const pauseTemporarily = (ms = 1200) => {
+  isPaused.value = true
+  if (buttonCooldownTimer) clearTimeout(buttonCooldownTimer)
+  buttonCooldownTimer = setTimeout(() => {
+    isPaused.value = false
+  }, ms)
+}
+
 const scrollPrev = () => {
-  if (!sliderRef.value) return
-  const cardWidth = sliderRef.value.querySelector('a')?.offsetWidth || 400
-  sliderRef.value.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' })
+  const el = sliderRef.value
+  if (!el) return
+  pauseTemporarily(1400)
+  const setWidth = getSingleSetWidth()
+  const cardWidth = el.querySelector('a')?.offsetWidth || 420
+  if (setWidth > 0 && el.scrollLeft < cardWidth + 24) {
+    el.scrollLeft += setWidth
+  }
+  el.scrollBy({ left: -(cardWidth + 24), behavior: 'smooth' })
 }
 
 const scrollNext = () => {
-  if (!sliderRef.value) return
-  const cardWidth = sliderRef.value.querySelector('a')?.offsetWidth || 400
-  sliderRef.value.scrollBy({ left: cardWidth + 24, behavior: 'smooth' })
+  const el = sliderRef.value
+  if (!el) return
+  pauseTemporarily(1400)
+  normalizeLoopScroll()
+  const cardWidth = el.querySelector('a')?.offsetWidth || 420
+  el.scrollBy({ left: cardWidth + 24, behavior: 'smooth' })
 }
 
 const startDrag = (e) => {
+  if (!sliderRef.value) return
   isDragging = true
+  hasDragged = false
   startX = e.pageX - sliderRef.value.offsetLeft
   scrollLeft = sliderRef.value.scrollLeft
 }
@@ -182,15 +251,51 @@ const stopDrag = () => {
   isDragging = false
 }
 
+const handleMouseLeave = () => {
+  isDragging = false
+  isPaused.value = false
+}
+
+const resumeAfterTouch = () => {
+  if (touchResumeTimer) clearTimeout(touchResumeTimer)
+  touchResumeTimer = setTimeout(() => {
+    isPaused.value = false
+  }, 1200)
+}
+
 const onDrag = (e) => {
-  if (!isDragging) return
-  e.preventDefault()
+  if (!isDragging || !sliderRef.value) return
   const x = e.pageX - sliderRef.value.offsetLeft
-  const walk = (x - startX) * 1.5
-  sliderRef.value.scrollLeft = scrollLeft - walk
+  if (Math.abs(x - startX) > 6) {
+    hasDragged = true
+  }
+  e.preventDefault()
+  const walk = (x - startX) * 1.4
+  const setWidth = getSingleSetWidth()
+  let nextScroll = scrollLeft - walk
+  if (setWidth > 0) {
+    if (nextScroll < 0) nextScroll += setWidth
+    if (nextScroll >= setWidth) nextScroll -= setWidth
+  }
+  sliderRef.value.scrollLeft = nextScroll
+}
+
+const handleCardClick = (e) => {
+  if (hasDragged) {
+    e.preventDefault()
+    e.stopPropagation()
+    hasDragged = false
+  }
 }
 
 onMounted(() => {
   checkScrollPosition()
+  rafId = window.requestAnimationFrame(autoScrollStep)
+})
+
+onUnmounted(() => {
+  if (rafId) window.cancelAnimationFrame(rafId)
+  if (buttonCooldownTimer) clearTimeout(buttonCooldownTimer)
+  if (touchResumeTimer) clearTimeout(touchResumeTimer)
 })
 </script>
