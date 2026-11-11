@@ -515,21 +515,14 @@
                 >
 
                 <!-- Subtle Watermark Stamp in Fullscreen (Tembus Pandang & Elegan) -->
-                <div class="absolute inset-0 flex flex-col items-center justify-between p-6 pointer-events-none select-none">
+                <div class="absolute inset-0 flex items-center justify-center p-6 pointer-events-none select-none">
                   <!-- Watermark Diagonal Super Halus & Adaptif (Kontras di Kertas Putih & Foto Gelap) -->
-                  <div class="my-auto rotate-[-20deg] text-center select-none pointer-events-none">
+                  <div class="rotate-[-20deg] text-center select-none pointer-events-none">
                     <p class="text-2xl sm:text-4xl md:text-5xl font-mono font-black tracking-widest text-ink/35 uppercase drop-shadow-[0_1px_2px_rgba(255,255,255,0.8)]">
                       PADAKARYA DESIGN
                     </p>
                     <p class="text-xs sm:text-sm font-mono font-semibold tracking-wider text-ink/40 mt-1.5 uppercase drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
                       Official Architectural &amp; Interior Portfolio · Protected Preview
-                    </p>
-                  </div>
-
-                  <!-- Floating Bottom Legal Badge -->
-                  <div class="rounded-full border border-white/25 bg-black/60 backdrop-blur-md px-5 py-2 text-center max-w-xl shadow-lg">
-                    <p class="text-[10px] sm:text-xs font-mono text-white/90 leading-tight">
-                      Full design to construction drawing, handle by Padakarya Design and checking by Padakarya Construction as a Contractor
                     </p>
                   </div>
                 </div>
@@ -560,6 +553,15 @@
                   <path d="M9 18l6-6-6-6"/>
                 </svg>
               </button>
+            </div>
+
+            <!-- Legal Badge (Di luar container gambar supaya tidak menutupi bagian bawah foto/slide) -->
+            <div class="mb-2.5 flex justify-center pointer-events-none select-none">
+              <div class="rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-center max-w-2xl">
+                <p class="text-[10px] sm:text-xs font-mono text-white/75 leading-snug">
+                  Full design to construction drawing, handle by Padakarya Design and checking by Padakarya Construction as a Contractor
+                </p>
+              </div>
             </div>
 
             <!-- Lightbox Bottom Bar -->
